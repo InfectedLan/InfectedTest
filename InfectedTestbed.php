@@ -11,12 +11,13 @@
 		public function __construct() {
 			//Initialize test here
 			$testSuites = array();
+			$testSuites[] = new TestSuite("Test suite");
 		}
 
 		public function runTests() {
 			$results = array();
 
-			foreach ($testSuites as $suite) {
+			foreach ($this->testSuites as $suite) {
 				//Run in try block so we can catch errors
 				try {
 					$suiteResults = $suite->runTests();

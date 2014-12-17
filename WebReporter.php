@@ -1,9 +1,9 @@
 <?php
 require_once 'TestReporter.php';
 
-class WebReporter : TestReporter {
+class WebReporter extends TestReporter {
 	public function report($testResults) {
-		echo "<h1>Test results for "
+		echo "<h1>Test results for ";
 		foreach ($testResults as $suiteResult) {
 			$this->reportSuite($suiteResult);
 		}
