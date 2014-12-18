@@ -10,8 +10,8 @@
 
 		public function __construct() {
 			//Initialize test here
-			$testSuites = array();
-			$testSuites[] = new TestSuite("Test suite");
+			$this->testSuites = array();
+			$this->testSuites[] = new TestSuite("Test suite");
 		}
 
 		public function runTests() {
