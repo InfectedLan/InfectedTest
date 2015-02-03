@@ -1,7 +1,7 @@
 InfectedTest
 ============
 
-Unit testing for infected API
+Unit testing for Infected API
 
 INSTALLATION
 ============
