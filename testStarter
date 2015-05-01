@@ -1,0 +1,42 @@
+#!/bin/sh
+
+should_test=false
+
+#Check tests repo for changes
+cd ~/testing
+git fetch origin
+if [ `git log --pretty=%H ...refs/heads/master^` = `git ls-remote origin -h refs/heads/master |cut -f1` ]; then
+    echo "Tests is up to date"
+else
+    echo "Pulling tests..."
+    git pull
+    should_test = true
+fi
+
+#Check api repo for changes
+cd ~/testing/api
+git fetch origin
+if [ `git log --pretty=%H ...refs/heads/master^` = `git ls-remote origin -h refs/heads/master |cut -f1` ]; then
+    echo "Api is up to date"
+else
+    echo "Pulling tests..."
+    git pull
+    should_test = true
+fi
+
+#Check deployment repo for changes
+cd ~/testing/deployment
+git fetch origin
+if [ `git log --pretty=%H ...refs/heads/master^` = `git ls-remote origin -h refs/heads/master |cut -f1` ]; then
+    echo "Deployment is up to date"
+else
+    echo "Pulling tests..."
+    git pull
+    should_test = true
+fi
+
+if $should_test ; then
+    echo "There were new commits! Testing..."
+    cd ~/testing
+    php cliTest.php
+fi
