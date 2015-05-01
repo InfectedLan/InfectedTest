@@ -15,10 +15,10 @@ else
     mkdir deployment
     cd deployment
     git init
-    git remote add origin
-    git pull origin master git@github.com:InfectedLan/InfectedDeployment.git
+    git remote add origin git@github.com:InfectedLan/InfectedDeployment.git
+    git pull origin master
 
     cd ..
     php cliTest.php
-    rm deployment
+    rm -rf deployment
 fi
