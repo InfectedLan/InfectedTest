@@ -1,6 +1,6 @@
 #!/bin/sh
 
-should_test = false
+should_test=false
 
 #Check tests repo for changes
 cd ~/testing
@@ -35,7 +35,7 @@ else
     should_test = true
 fi
 
-if ["$should_test" = true]; then
+if $should_test ; then
     echo "There were new commits! Testing..."
     cd ~/testing
     php cliTest.php
