@@ -1,0 +1,24 @@
+#!/bin/sh
+
+cd ~/testing
+
+git fetch origin
+
+if [ `git log --pretty=%H ...refs/heads/master^` = `git ls-remote origin -h refs/heads/master |cut -f1` ]; then
+	echo "No git changes"
+else
+    echo "Pulling tests..."
+    git pull
+
+    echo "Creating and fetching newest deployment data";
+    rm -rf deployment
+    mkdir deployment
+    cd deployment
+    git init
+    git remote add origin
+    git pull origin master git@github.com:InfectedLan/InfectedDeployment.git
+
+    cd ..
+    php cliTest.php
+    rm deployment
+fi
