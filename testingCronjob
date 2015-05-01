@@ -1,24 +1,42 @@
 #!/bin/sh
 
+SHOULDTEST = false
+
+#Check tests repo for changes
 cd ~/testing
-
 git fetch origin
-
 if [ `git log --pretty=%H ...refs/heads/master^` = `git ls-remote origin -h refs/heads/master |cut -f1` ]; then
-	echo "No git changes"
+	echo "Tests is up to date"
 else
     echo "Pulling tests..."
     git pull
+    SHOULDTEST = true
+fi
 
-    echo "Creating and fetching newest deployment data";
-    rm -rf deployment
-    mkdir deployment
-    cd deployment
-    git init
-    git remote add origin git@github.com:InfectedLan/InfectedDeployment.git
-    git pull origin master
+#Check api repo for changes
+cd ~/testing/api
+git fetch origin
+if [ `git log --pretty=%H ...refs/heads/master^` = `git ls-remote origin -h refs/heads/master |cut -f1` ]; then
+	echo "Api is up to date"
+else
+    echo "Pulling tests..."
+    git pull
+    SHOULDTEST = true
+fi
 
-    cd ..
-    php cliTest.php
-    rm -rf deployment
+#Check api repo for changes
+cd ~/testing/deployment
+git fetch origin
+if [ `git log --pretty=%H ...refs/heads/master^` = `git ls-remote origin -h refs/heads/master |cut -f1` ]; then
+	echo "Api is up to date"
+else
+    echo "Pulling tests..."
+    git pull
+    SHOULDTEST = true
+fi
+
+if ["$SHOULDTEST" = true]; then
+	echo "There were new commits! Testing..."
+	cd ~/testing
+	php cliTest.php
 fi
