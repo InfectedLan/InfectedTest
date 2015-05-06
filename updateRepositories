@@ -2,15 +2,15 @@
 
 cd /home/test.infected.no/public_html/test
 
-git pull
+git pull origin master
 
 cd /home/test.infected.no/public_html/test/deploymentData
 
-git pull
+git pull origin master
 
 cd /home/test.infected.no/public_html/test/testApi
 
-git pull
+git pull origin master
 
 cd /home/test.infected.no/public_html/test
 
