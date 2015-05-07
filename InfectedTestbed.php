@@ -14,8 +14,14 @@
 			$this->testSuites[] = new TestSuite("Test suite");
 		}
 
+		private function initDatabase() {
+			//TODO Load database into here
+		}
+
 		public function runTests() {
 			$results = array();
+
+			$this->initDatabase();
 
 			foreach ($this->testSuites as $suite) {
 				//Run in try block so we can catch errors
