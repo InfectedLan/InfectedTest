@@ -4,6 +4,8 @@
 	require_once 'TestResult.php';
 	require_once 'TestReporter.php';
 	require_once 'WebReporter.php';
+	require_once 'testApi/settings.php';
+	require_once 'testApi/secret.php';
 
 	class InfectedTestbed {
 		private $testSuites;
@@ -15,7 +17,28 @@
 		}
 
 		private function initDatabase() {
-			//TODO Load database into here
+			$databases = array();
+			$databases[] = array("fs_location" => "deploymentData/test_infected_no.sql", "sql_db" => Settings::db_name_infected);
+			$databases[] = array("fs_location" => "deploymentData/test_infected_no_compo.sql", "sql_db" => Settings::db_name_infected_compo);
+			$databases[] = array("fs_location" => "deploymentData/test_infected_no_crew.sql", "sql_db" => Settings::db_name_infected_crew);
+			$databases[] = array("fs_location" => "deploymentData/test_infected_no_info.sql", "sql_db" => Settings::db_name_infected_info);
+			$databases[] = array("fs_location" => "deploymentData/test_infected_no_main.sql", "sql_db" => Settings::db_name_infected_main);
+			$databases[] = array("fs_location" => "deploymentData/test_infected_no_tickets.sql", "sql_db" => Settings::db_name_infected_tickets);
+			
+			foreach($databases as $database) {
+				$mysqli = new mysqli(Settings::db_host, 
+							   Secret::db_username, 
+							   Secret::db_password);
+
+				if($mysqli->select_db($database["sql_db"])) {
+					//Database exists
+				} else {
+					$mysqli->query("CREATE DATABASE " . $database["sql_db"]);
+				}
+
+				$command = "mysql -h " . Settings::db_host . " -u '" . Secret::db_username . "' -p'" . Secret::db_password . "' '" . $database["sql_db"] . "' < '" . $database["fs_location"] . "'";
+				//echo "<p>" . $command . ", " . shell_exec($command) . "</p>";
+			}
 		}
 
 		public function runTests() {
