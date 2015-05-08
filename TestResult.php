@@ -27,5 +27,17 @@ class TestResult {
 	public function getMessage() {
 		return $this->message;
 	}
+
+	public function getResultString() {
+		if($this->testResult == self::TEST_PASSED) {
+			return "Passed";
+		} else if($testResult == self::TEST_FAILED) {
+			return "Failed";
+		} else if($testResult == self::TEST_PASSED_WITH_WARNING) {
+			return "Passed with warning";
+		} else if($testResult == self::TEST_NOT_RAN) {
+			return "Not ran";
+		}
+	}
 }
 ?>

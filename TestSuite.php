@@ -5,8 +5,10 @@ require_once 'TestSuiteResult.php';
 class TestSuite {
 	private $name;
 	private $testList;
-	public function __construct($name) {
+	private $testReporter;
+	public function __construct($name, $reporter) {
 		$this->name = $name;
+		$this->testReporter = $reporter;
 		$this->testList = array();
 	}
 	public function getName() {
@@ -33,14 +35,14 @@ class TestSuite {
 		$stackTrace = debug_backtrace();
 		$caller = $stackTrace[1];
 
-		$this->testList[] = new TestResult($caller["function"] . "() line " . $caller["line"], $val == $expectedVal ? TestResult::TEST_PASSED : TestResult::TEST_FAILED, $comment);
+		$this->testReporter->report(new TestResult($caller["function"] . "() line " . $caller["line"], $val == $expectedVal ? TestResult::TEST_PASSED : TestResult::TEST_FAILED, $comment));
 	}
 
 	private function report($result, $comment) {
 		$stackTrace = debug_backtrace();
 		$caller = $stackTrace[1];
 
-		$this->testList[] = new TestResult($caller["function"] . " line " . $caller["line"], $result, $comment);
+		$this->testReporter->report(new TestResult($caller["function"] . " line " . $caller["line"], $result, $comment));
 	}
 
 	public function runTests() {

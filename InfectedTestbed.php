@@ -3,17 +3,22 @@
 	require_once 'TestSuiteResult.php';
 	require_once 'TestResult.php';
 	require_once 'TestReporter.php';
-	require_once 'WebReporter.php';
+	require_once 'CmdReporter.php';
 	require_once 'testApi/settings.php';
 	require_once 'testApi/secret.php';
+
+	function __autoload($class) {
+		include 'tests/' . $class . '.php';
+	}
 
 	class InfectedTestbed {
 		private $testSuites;
 
-		public function __construct() {
+		public function __construct($reporter) {
 			//Initialize test here
 			$this->testSuites = array();
-			$this->testSuites[] = new TestSuite("Test suite");
+			//$this->testSuites[] = new TestSuite("Test suite", $reporter);
+			$this->testSuites[] = new UserTestSuite("User suite", $reporter);
 		}
 
 		private function initDatabase() {
@@ -32,12 +37,14 @@
 
 				if($mysqli->select_db($database["sql_db"])) {
 					//Database exists
-				} else {
-					$mysqli->query("CREATE DATABASE " . $database["sql_db"]);
+					$mysqli->query("DROP DATABASE " . $database["sql_db"]);
 				}
+				echo "<p>" . $mysqli->error . "</p>";
+
+				$mysqli->query("CREATE DATABASE " . $database["sql_db"]);
 
 				$command = "mysql -h " . Settings::db_host . " -u '" . Secret::db_username . "' -p'" . Secret::db_password . "' '" . $database["sql_db"] . "' < '" . $database["fs_location"] . "'";
-				//echo "<p>" . $command . ", " . shell_exec($command) . "</p>";
+				echo "<p>" . $command . ", " . shell_exec($command) . "</p>";
 			}
 		}
 
@@ -62,10 +69,11 @@
 	}
 
 	//Run the test
-	$testbed = new InfectedTestbed();
+	$reporter = new CmdReporter();
+	$testbed = new InfectedTestbed($reporter);
 	$testResults = $testbed->runTests();
 
 	//Only support web for now, but we could do this CLI on a CRON job or something connected to git?
-	$reporter = new WebReporter();
-	$reporter->report($testResults);
+	
+	//$reporter->report($testResults);
 ?>
