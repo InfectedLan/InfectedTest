@@ -3,7 +3,7 @@ class CmdReporter extends TestReporter{
 	private $suites;
 
 	public function __construct() {
-		$suites = array();
+		$this->suites = array();
 	}
 
 	public function beginSuite($suiteName) {
@@ -16,7 +16,7 @@ class CmdReporter extends TestReporter{
 	}
 
 	public function doneTesting() {
-		
+		//print_r($this->suites);
 	}
 }
 ?>

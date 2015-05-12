@@ -2,7 +2,20 @@
 require_once 'TestReporter.php';
 
 class WebReporter extends TestReporter {
-	public function report($testResults) {
+	private $suites;
+
+	public function __construct() {
+		$this->suites = array();
+	}
+
+	public function beginSuite($suiteName) {
+		$this->suites[] = array("name" => $suiteName, "results" => array());
+	}
+	public function report($result) {
+		array_push($this->suites[sizeof($this->suites)-1]["results"], $result);
+	}
+
+	public function doneTesting() {
 		echo "<html>";
 			echo "<head>";
 				echo "<style type='text/css'>";
@@ -15,14 +28,15 @@ class WebReporter extends TestReporter {
 			echo "</head>";
 			echo "<body>";
 				echo "<h1>Test results for InfectedTest</h1>";
-				foreach ($testResults as $suiteResult) {
+				foreach ($this->suites as $suiteResult) {
 					$this->reportSuite($suiteResult);
 				}
 			echo "</body>";
 		echo "</html>";
 	}
 	private function reportSuite($suiteResult) {
-		$testResults = $suiteResult->getResults();
+		//print_r($suiteResult);
+		$testResults = $suiteResult["results"];
 		$passed = 0;
 		$failed = 0;
 		$passed_with_warn = 0;
@@ -46,7 +60,7 @@ class WebReporter extends TestReporter {
 					break;
 			}
 		}
-		echo '<h3>Test report for suite "' . $suiteResult->getName() . '". ' . $passed . ' passed, ' . $failed . ' failed, ' . $passed_with_warn . ' passed with warning, ' . $not_ran . ' not ran.' . '</h3>';
+		echo '<h3>Test report for suite "' . $suiteResult["name"] . '". ' . $passed . ' passed, ' . $failed . ' failed, ' . $passed_with_warn . ' passed with warning, ' . $not_ran . ' not ran.' . '</h3>';
 		foreach ($testResults as $testResult) {
 			echo '<div class="';
 			switch ($testResult->getResult()) {

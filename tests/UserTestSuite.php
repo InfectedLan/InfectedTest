@@ -1,14 +1,65 @@
 <?php
 require_once 'TestResult.php';
-require_once 'TestSuiteResult.php';
 require_once 'objects/user.php';
 require_once 'handlers/userhandler.php';
 
+/*
+ * HEY!
+ * 
+ * I know this is overly commented, but that is the meaning. This is a "tutorial" on how we assert stuff, and so i explain a lot of stuff
+ * If you are learning test writing from this, try to learn the way of thinking from reading the code :)
+ *
+ * - Liam
+ */
 class UserTestSuite extends TestSuite {
-
 	//Override this
 	public function test() {
-		$this->assert(false, "User test suite not implemented!");
+		$this->userCreationTest();
+	}
+	private function userCreationTest() {
+		//We expect 21 users to exist from the deployment code
+		$users = UserHandler::getUsers(); //Get users
+		$this->assert_equals(count($users), 22); //This asserts if the number of users is 22. It will fail if the left side does not equal the right side
+
+		//Check that the user does not exist. This is done to test that the function does not return bogus data, and is a reccomended thing to test. Test everything, basically.
+		$user = UserHandler::getUserByIdentifier("assertUser");
+		$this->assert_equals($user, null);
+		//Check that we can get the user by email
+		$user = UserHandler::getUserByIdentifier("assertUser@infected.no");
+		$this->assert_equals($user, null);
+
+		//Let's create another user
+		$userId = UserHandler::createUser("assertionFirstname", "assertionLastname", "assertUser", "32cdb619196200050ab0af581a10fb83cfc63b1a20f58d4bafb6313d55a3f0e9", "assertUser@infected.no", "1998-03-27 00:00:00", 0, "12345678", "Test address", 1337, "AssertNick");
+		//Check that we can get the user by username
+		$user = UserHandler::getUserByIdentifier("assertUser");
+		$this->assert_not_equals($user, null);
+		//Check that we can get the user by email
+		$email_user = UserHandler::getUserByIdentifier("assertUser@infected.no");
+		$this->assert_not_equals($email_user, null);
+
+		//Check if the two accounts are the same account
+		$this->assert_compare($user->getId(), $email_user->getId());
+		//Check if this is the user we inserted
+		$this->assert_compare($user->getId(), $userId);
+
+		//Check that the fields we inserted are intact
+		$this->assert_compare($user->getFirstname(), "assertionFirstname");
+		$this->assert_compare($user->getLastname(), "assertionLastname");
+		$this->assert_compare($user->getUsername(), "assertUser");
+		$this->assert_compare($user->getPassword(), "32cdb619196200050ab0af581a10fb83cfc63b1a20f58d4bafb6313d55a3f0e9");
+		$this->assert_compare($user->getEmail(), "assertUser@infected.no");
+		$this->assert_compare($user->getBirthdate(), 890953200);
+		$this->assert_compare($user->getGenderAsString(), "Gutt");
+		$this->assert_compare($user->getPhoneAsString(), "12 34 56 78");
+		$this->assert_compare($user->getAddress(), "Test address");
+		$this->assert_compare($user->getPostalCode(), "1337");
+		$this->assert_compare($user->getNickname(), "AssertNick");
+
+		//One last thing, check if girl string also works
+		$userId = UserHandler::createUser("assertionGirlFirst", "assertionGirlLast", "assertGirl", "32cdb619196200050ab0af581a10fb83cfc63b1a20f58d4bafb6313d55a3f0e9", "assertGirl@infected.no", "1998-03-27 00:00:00", 1, "12345678", "Test address", 1337, "AssertGirl");
+		$user = UserHandler::getUserByIdentifier("assertGirl");
+
+		$this->assert_compare($user->getGenderAsString(), "Jente");
 	}
 }
 ?>
