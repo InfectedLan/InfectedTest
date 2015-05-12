@@ -5,7 +5,7 @@ Hey! If you are reading this, you have propabily been tasked in writing tests fo
 
 Assertion
 =========
-*Assertion - to state with assurance, confidence, or force; state strongly or positively; affirm; aver: *
+_Assertion - to state with assurance, confidence, or force; state strongly or positively; affirm; aver:_
  - dictionary.reference.com
 
 In a testbed, we assert the testbed that the value of a variable, or the return of a function, is something. If this assertion is false, that assertion has failed.
