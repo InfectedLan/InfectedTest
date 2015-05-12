@@ -45,6 +45,7 @@ Creating your own tests
 =======================
 
  * Create a new class in the ```tests``` folder using same filename as classname(Same upper and lower letters)
+ * Add the class to the array of test suites in the constructor for ```InfectedTestbed```. Classes are automatically loaded from a similarly named file.
  * Let the class extend the class ```TestSuite```
  * Override the function ```test()```
  * Write functions called from ```test()``` that does the testing
