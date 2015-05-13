@@ -34,7 +34,7 @@ class TestSuite {
 	{
 		$comment = "Test passed";
 		if($val !== $expected) {
-			$comment = "Expected " . $expected . ", got " . $val;
+			$comment = "Expected " . self::createHumanString($expected) . ", got " . self::createHumanString($val);
 		}
 
 		$stackTrace = debug_backtrace();
@@ -49,7 +49,7 @@ class TestSuite {
 	{
 		$comment = "Test passed";
 		if($val === $expected) {
-			$comment = "Expected " . $val . ", to not be equal to " . $expected;
+			$comment = "Expected " . self::createHumanString($val) . " to not be equal to " . self::createHumanString($expected);
 		}
 
 		$stackTrace = debug_backtrace();
@@ -64,7 +64,7 @@ class TestSuite {
 	{
 		$comment = "Test passed";
 		if($val1 !== $val2) {
-			$comment = $val1 . " is not the same as " . $val2;
+			$comment = self::createHumanString($val1) . " is not the same as " . self::createHumanString($val2);
 		}
 
 		$stackTrace = debug_backtrace();
@@ -86,6 +86,19 @@ class TestSuite {
 	public function runTests() {
 		$this->testReporter->beginSuite($this->name);
 		$this->test();
+	}
+
+	private function createHumanString($val) 
+	{
+		if($val == null) {
+			return "null";
+		}
+		if(is_string($val)) {
+			return '"' . $val . '"';
+		}
+		if(is_numeric($val)) {
+			return strval($val);
+		}
 	}
 }
 ?>
