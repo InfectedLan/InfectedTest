@@ -13,19 +13,19 @@ rm -f testApi/secret.php
 
 cd /home/test.infected.no/public_html/test
 
-git pull origin master
+ssh-agent bash -c 'ssh-add /home/test.infected.no/.ssh/id_rsa; git pull origin master'
 
 cd /home/test.infected.no/public_html/test/deploymentData
 
-git pull origin master
+ssh-agent bash -c 'ssh-add /home/test.infected.no/.ssh/id_rsa; git pull origin master'
 
 cd /home/test.infected.no/public_html/test/testApi
 
 #git checkout -- .
 echo "Pulling out $branch"
-git pull origin $branch
-git fetch origin
-git checkout $branch
+ssh-agent bash -c 'ssh-add /home/test.infected.no/.ssh/id_rsa; git pull origin $branch'
+ssh-agent bash -c 'ssh-add /home/test.infected.no/.ssh/id_rsa; git fetch origin'
+ssh-agent bash -c 'ssh-add /home/test.infected.no/.ssh/id_rsa; git checkout $branch'
 
 cd /home/test.infected.no/public_html/test
 
