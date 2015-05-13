@@ -1,5 +1,6 @@
 #!/bin/sh
 
+PATH = $PATH:/usr/bin
 branch="development"
 if [ "$#" -ne 1 ]; then
 	echo "Assuming branch $branch";
