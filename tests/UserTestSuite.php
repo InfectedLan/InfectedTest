@@ -11,6 +11,12 @@ require_once 'handlers/userhandler.php';
  *
  * - Liam
  */
+/*
+ * UserTestSuite
+ *
+ * Responsible for testing UserHandler and the User object
+ *
+ */
 class UserTestSuite extends TestSuite {
 	//Override this
 	public function test() {
