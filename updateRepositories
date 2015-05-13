@@ -8,8 +8,8 @@ else
 fi
 
 echo "Deleting custom files"
-rm testApi/settings.php
-rm testApi/secret.php
+rm -f testApi/settings.php
+rm -f testApi/secret.php
 
 cd /home/test.infected.no/public_html/test
 
