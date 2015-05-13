@@ -31,6 +31,7 @@ class ClanTestSuite extends TestSuite {
 		if($this->assert_not_equals($event, null)) {
 
 		}
+		$this->report(TestResult::TEST_NOT_RAN, "Halvor is lazy!");
 	}
 }
 ?>
