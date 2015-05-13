@@ -27,6 +27,7 @@ class TestSuite {
 		$line = $stackTrace[0]["line"];
 
 		$this->testReporter->report(new TestResult($caller . "() line " . $line, $val === true ? TestResult::TEST_PASSED : TestResult::TEST_FAILED, ""));
+		return $val === true;
 	}
 
 	//Asserts if val is equal(type specific) to value passed
@@ -42,6 +43,7 @@ class TestSuite {
 		$line = $stackTrace[0]["line"];
 
 		$this->testReporter->report(new TestResult($caller . "() line " . $line, $val === $expected ? TestResult::TEST_PASSED : TestResult::TEST_FAILED, $comment));
+		return $val === $expected;
 	}
 
 	//Asserts if val is not equal(type specific) to value passed
@@ -57,6 +59,7 @@ class TestSuite {
 		$line = $stackTrace[0]["line"];
 
 		$this->testReporter->report(new TestResult($caller . "() line " . $line, $val !== $expected ? TestResult::TEST_PASSED : TestResult::TEST_FAILED, $comment));
+		return $val !== $expected;
 	}
 
 	//Same as assert_equals, but with a different text on a failure(for troubleshooting)
@@ -72,6 +75,7 @@ class TestSuite {
 		$line = $stackTrace[0]["line"];
 
 		$this->testReporter->report(new TestResult($caller . "() line " . $line, $val1 === $val2 ? TestResult::TEST_PASSED : TestResult::TEST_FAILED, $comment));
+		return $val1 === $val2;
 	}
 
 	//An assertion with custom rersult and comment. Basically ignoring all the things in the functions above
