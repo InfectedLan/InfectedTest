@@ -1,6 +1,5 @@
 #!/bin/sh
 
-PATH = $PATH:/usr/bin
 branch="development"
 if [ "$#" -ne 1 ]; then
 	echo "Assuming branch $branch";
@@ -14,19 +13,19 @@ rm -f testApi/secret.php
 
 cd /home/test.infected.no/public_html/test
 
-ssh-agent bash -c 'ssh-add /home/test.infected.no/.ssh/id_rsa; git pull origin master'
+git pull origin master
 
 cd /home/test.infected.no/public_html/test/deploymentData
 
-ssh-agent bash -c 'ssh-add /home/test.infected.no/.ssh/id_rsa; git pull origin master'
+git pull origin master
 
 cd /home/test.infected.no/public_html/test/testApi
 
 #git checkout -- .
 echo "Pulling out $branch"
-ssh-agent bash -c 'ssh-add /home/test.infected.no/.ssh/id_rsa; git pull origin $branch'
-ssh-agent bash -c 'ssh-add /home/test.infected.no/.ssh/id_rsa; git fetch origin'
-ssh-agent bash -c 'ssh-add /home/test.infected.no/.ssh/id_rsa; git checkout $branch'
+git pull origin $branch
+git fetch origin
+git checkout $branch
 
 cd /home/test.infected.no/public_html/test
 
