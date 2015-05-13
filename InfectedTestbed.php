@@ -21,6 +21,12 @@
 			$this->testSuites = array();
 			//$this->testSuites[] = new TestSuite("Test suite", $reporter);
 			$this->testSuites[] = new UserTestSuite($reporter);
+			$this->testSuites[] = new ClanTestSuite($reporter);
+		}
+
+		//Handles stuff like git pulling
+		private function initEnvironment() {
+			echo shell_exec("./updateRepositories");
 		}
 
 		private function initDatabase() {
@@ -54,7 +60,9 @@
 		public function runTests($reporter) {
 			$results = array();
 
+			$this->initEnvironment();
 			$this->initDatabase();
+
 
 			foreach ($this->testSuites as $suite) {
 				//Run in try block so we can catch errors
