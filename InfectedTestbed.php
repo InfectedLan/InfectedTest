@@ -26,7 +26,7 @@
 
 		//Handles stuff like git pulling
 		private function initEnvironment() {
-			echo shell_exec("./updateRepositories");
+			shell_exec("./updateRepositories");
 		}
 
 		private function initDatabase() {
