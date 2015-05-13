@@ -30,7 +30,9 @@ These are the current functions we support:
 Starting the tests
 ==================
 
-Currently, to start the tests, run ```InfectedTestbed.php``` from a web browser. There is a command line tester, but it is not in use as the web report is easier to read. A SQL reporter is in planned, but not prioritized right now.
+If you haven't ran the tests before, run the script updateRepositories. The test needs *ITS OWN INSTALLATION* of InfectedAPI, as we are changing the config so the api automatically works with the test db.
+
+Currently, to start the tests, run ```InfectedTestbed.php``` from a web browser. There is a command line tester, but it is not in use as the web report is easier to read. A SQL reporter is in planned, but not prioritized right now. 
 
 General rules and best practise
 ===============================

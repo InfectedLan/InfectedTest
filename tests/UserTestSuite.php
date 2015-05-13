@@ -59,6 +59,7 @@ class UserTestSuite extends TestSuite {
 			$this->assert_compare($user->getBirthdate(), 890953200);
 			$this->assert_compare($user->getGenderAsString(), "Gutt");
 			$this->assert_compare($user->getPhoneAsString(), "12 34 56 78");
+			$this->assert_compare($user->getPhone(), 12345678);
 			$this->assert_compare($user->getAddress(), "Test address");
 			$this->assert_compare($user->getPostalCode(), "1337");
 			$this->assert_compare($user->getNickname(), "AssertNick");
