@@ -1,7 +1,9 @@
 <?php
+require_once 'TestSuite.php';
 require_once 'TestResult.php';
-require_once 'objects/user.php';
+
 require_once 'handlers/userhandler.php';
+require_once 'objects/user.php';
 
 /*
  * HEY!
@@ -22,6 +24,7 @@ class UserTestSuite extends TestSuite {
 	public function test() {
 		$this->userCreationTest();
 	}
+	
 	private function userCreationTest() {
 		//We expect 21 users to exist from the deployment code
 		$users = UserHandler::getUsers(); //Get users
@@ -35,9 +38,19 @@ class UserTestSuite extends TestSuite {
 		$this->assert_equals($user, null);
 
 		//Let's create another user
-		$createdUser = UserHandler::createUser("assertionFirstname", "assertionLastname", "assertUser", "32cdb619196200050ab0af581a10fb83cfc63b1a20f58d4bafb6313d55a3f0e9", "assertUser@infected.no", "1998-03-27 00:00:00", 0, "12345678", "Test address", 1337, "AssertNick");
-		if($this->assert_not_equals($createdUser, null))
-		{
+		$createdUser = UserHandler::createUser("assertionFirstname", 
+											   "assertionLastname", 
+											   "assertUser", 
+											   "32cdb619196200050ab0af581a10fb83cfc63b1a20f58d4bafb6313d55a3f0e9", 
+											   "assertUser@infected.no", 
+											   "1998-03-27 00:00:00", 
+											   0, 
+											   "12345678", 
+											   "Test address", 
+											   1337, 
+											   "AssertNick");
+
+		if ($this->assert_not_equals($createdUser, null)) {
 			//Check that we can get the user by username
 			$user = UserHandler::getUserByIdentifier("assertUser");
 			$this->assert_not_equals($user, null);
@@ -66,9 +79,19 @@ class UserTestSuite extends TestSuite {
 		}
 
 		//One last thing, check if girl string also works
-		$createdUser = UserHandler::createUser("assertionGirlFirst", "assertionGirlLast", "assertGirl", "32cdb619196200050ab0af581a10fb83cfc63b1a20f58d4bafb6313d55a3f0e9", "assertGirl@infected.no", "1998-03-27 00:00:00", 1, "12345678", "Test address", 1337, "AssertGirl");
-		if($this->assert_not_equals($createdUser, null))
-		{
+		$createdUser = UserHandler::createUser("assertionGirlFirst", 
+											   "assertionGirlLast", 
+											   "assertGirl", 
+											   "32cdb619196200050ab0af581a10fb83cfc63b1a20f58d4bafb6313d55a3f0e9", 
+											   "assertGirl@infected.no", 
+											   "1998-03-27 00:00:00", 
+											   1, 
+											   "12345678", 
+											   "Test address", 
+											   1337, 
+											   "AssertGirl");
+		
+		if ($this->assert_not_equals($createdUser, null)) {
 			$user = UserHandler::getUserByIdentifier("assertGirl");
 
 			$this->assert_not_equals($user, null);

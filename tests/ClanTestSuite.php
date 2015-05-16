@@ -1,12 +1,15 @@
 <?php
+require_once 'TestSuite.php';
 require_once 'TestResult.php';
-require_once 'objects/user.php';
+
+require_once 'database.php';
+require_once 'settings.php';
+
 require_once 'handlers/userhandler.php';
 require_once 'handlers/eventhandler.php';
 require_once 'handlers/compohandler.php';
 require_once 'handlers/clanhandler.php';
-require_once 'database.php';
-require_once 'settings.php';
+require_once 'objects/user.php';
 
 /*
  * ClanTestSuite
@@ -19,6 +22,7 @@ class ClanTestSuite extends TestSuite {
 		$this->clanCreationTest();
 		//$this->clanInviteMemberTest();
 	}
+
 	/*
 	 * Tests the functionality of ClanHandler::invite. Not a test for InviteHandler.
 	 */
@@ -36,6 +40,7 @@ class ClanTestSuite extends TestSuite {
 		$invites = InviteHandler::getInvitesByUser($testUser);
 		$this->assert_equals(count($invites), 1);
 	}
+
 	private function clanCreationTest() {
 		$sql = Database::open(Settings::db_name_infected_compo);
 
@@ -49,7 +54,8 @@ class ClanTestSuite extends TestSuite {
 																					'VALUES (\'' . $event->getId() . '\', \'Test compo\', \'COMPO\', \'This is a test compo\', \'1v1\', 1337, \'' . date( 'Y-m-d H:i:s', $startTime ) . '\', \'' . date( 'Y-m-d H:i:s', $registerTime ) . '\', 5);');
 		
 		$compo = CompoHandler::getCompo($sql->insert_id);
-		if($this->assert_not_equals($event, null)) {
+
+		if ($this->assert_not_equals($event, null)) {
 			$clan = ClanHandler::createClan($event, "Test clan", "CLAN", $compo, $user);
 
 			$this->assert_equals($clan->getName(), "Test clan");
@@ -57,10 +63,10 @@ class ClanTestSuite extends TestSuite {
 			$this->assert_equals($clan->getChief()->getId(), $user->getId());
 			$this->assert_equals($clan->getCompo()->getId(), $compo->getId());
 			$members = $clan->getMembers();
-			if($this->assert_equals(count($members), 1)) {
+			
+			if ($this->assert_equals(count($members), 1)) {
 				$this->assert_equals($members[0]->getId(), $user->getId());
 			}
-
 		}
 	}
 }
