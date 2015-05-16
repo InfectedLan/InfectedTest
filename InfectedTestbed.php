@@ -22,6 +22,7 @@
 			//$this->testSuites[] = new TestSuite("Test suite", $reporter);
 			$this->testSuites[] = new UserTestSuite($reporter);
 			$this->testSuites[] = new ClanTestSuite($reporter);
+			$this->testSuites[] = new InviteTestSuite($reporter);
 		}
 
 		//Handles stuff like git pulling
