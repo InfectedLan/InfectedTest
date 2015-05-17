@@ -4,8 +4,8 @@ require_once 'TestResult.php';
 class TestSuite {
 	private $name;
 	private $testList;
-	private $testReporter
-	
+	private $testReporter;
+
 	public function __construct($reporter) {
 		$this->name = get_called_class();
 		$this->testReporter = $reporter;
