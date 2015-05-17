@@ -3,6 +3,7 @@ require_once 'TestReporter.php';
 
 class WebReporter extends TestReporter {
 	private $suites;
+	private $errors;
 
 	public function __construct() {
 		$this->suites = array();
@@ -30,6 +31,9 @@ class WebReporter extends TestReporter {
 				echo "<h1>Test results for InfectedTest</h1>";
 				foreach ($this->suites as $suiteResult) {
 					$this->reportSuite($suiteResult);
+				}
+				if(sizeof($this->errors)>0) {
+					$this->reportErrors();
 				}
 			echo "</body>";
 		echo "</html>";
@@ -110,6 +114,110 @@ class WebReporter extends TestReporter {
 				echo '</i>)';
 			echo '</div>';
 		}
+	}
+
+	public function fatal_error($code, $message, $file, $line) {
+			$stacktrace = debug_backtrace();
+			echo "<table id=\"error\" border=\"1\">";
+			echo "<tr>";
+				echo "<td colspan=\"3\"><h1>Fatal error</h1></td>";
+			echo "</tr>";
+			echo "<tr>";
+				echo "<td colspan=\"3\"><i>Error info</i></td>";
+			echo "</tr>";
+			echo "<tr>";
+				echo "<td>Type:</td>";
+				echo "<td colspan=\"2\">" . $this->codeToString($code) . "</td>";
+			echo "</tr>";
+			echo "<tr>";
+				echo "<td>Message:</td>";
+				echo "<td colspan=\"2\">" . $message . "</td>";
+			echo "</tr>";
+			echo "<tr>";
+				echo "<td>File:</td>";
+				echo "<td colspan=\"2\">" . $file . "</td>";
+			echo "</tr>";
+			echo "<tr>";
+				echo "<td>Line:</td>";
+				echo "<td colspan=\"2\">" . $line . "</td>";
+			echo "</tr>";
+			echo "<tr>";
+				echo "<td colspan=\"3\"><i>Stack trace</i></td>";
+			echo "</tr>";
+			$i = 0;
+			foreach ($stacktrace as $stack) {
+				echo "<tr>";
+					echo "<td>" . $i . "</td>";
+					echo "<td>" . ( isset($stack["file"]) ? $stack["file"] : "<i>No file</i>" ) . " line " . ( isset($stack["line"]) ? $stack["line"] : "<i>No line</i>" )  . "</td>";
+					echo "<td>" . $stack["function"] . "()</td>";
+				echo "</tr>";
+					foreach($stack["args"] as $argument) {
+						echo "<tr>";
+						echo "<td></td>";
+						echo "<td colspan=\"2\"><pre>";
+						print_r($argument);
+						echo "</pre></td>";
+						echo "</tr>";
+					}				
+				$i++;
+			}
+		echo "</table>";
+	}
+	public function error($code, $message, $file, $line) {
+		$this->errors[] = array("code" => $code, "message" => $message, "file" => $file, "line" => $line);
+	}
+
+	private functionreportErrors() {
+		echo "<h1>Errors</h1>";
+		echo "<table>";
+		echo "<tr><td>Type</td><td>Message</td><td>File</td><td>Line</td></tr>";
+		foreach($this->errors as $error) {
+
+		}
+		echo "</table>";
+	}
+
+	private function codeToString($code) {
+		if($code==E_ERROR) {
+			return "E_ERROR";
+		}
+		if($code==E_WARNING) {
+			return "E_WARNING";
+		}
+		if($code==E_PARSE) {
+			return "E_PARSE";
+		}
+		if($code==E_NOTICE) {
+			return "E_NOTICE";
+		}
+		if($code==E_CORE_ERROR) {
+			return "E_CORE_ERROR";
+		}
+		if($code==E_CORE_WARNING) {
+			return "E_CORE_WARNING";
+		}
+		if($code==E_COMPILE_ERROR) {
+			return "E_COMPILE_ERROR";
+		}
+		if($code==E_USER_ERROR) {
+			return "E_USER_ERROR";
+		}
+		if($code==E_USER_WARNING) {
+			return "E_USER_WARNING";
+		}
+		if($code==E_USER_NOTICE) {
+			return "E_USER_NOTICE";
+		}
+		if($code==E_STRICT) {
+			return "E_STRICT";
+		}
+		if($code==E_RECOVERABLE_ERROR) {
+			return "E_RECOVERABLE_ERROR";
+		}
+		if($code==E_ALL) {
+			return "E_ALL";
+		}
+		return "?";
 	}
 }
 ?>
