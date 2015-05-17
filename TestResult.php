@@ -29,13 +29,13 @@ class TestResult {
 	}
 
 	public function getResultString() {
-		if($this->testResult == self::TEST_PASSED) {
+		if ($this->testResult == self::TEST_PASSED) {
 			return "Passed";
-		} else if($testResult == self::TEST_FAILED) {
+		} else if ($testResult == self::TEST_FAILED) {
 			return "Failed";
-		} else if($testResult == self::TEST_PASSED_WITH_WARNING) {
+		} else if ($testResult == self::TEST_PASSED_WITH_WARNING) {
 			return "Passed with warning";
-		} else if($testResult == self::TEST_NOT_RAN) {
+		} else if ($testResult == self::TEST_NOT_RAN) {
 			return "Not ran";
 		}
 	}
