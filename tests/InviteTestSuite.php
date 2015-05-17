@@ -1,24 +1,25 @@
 <?php
+require_once 'TestSuite.php';
 require_once 'TestResult.php';
-require_once 'objects/user.php';
+
 require_once 'handlers/userhandler.php';
 require_once 'handlers/eventhandler.php';
 require_once 'handlers/compohandler.php';
 require_once 'handlers/clanhandler.php';
 require_once 'handlers/invitehandler.php';
-require_once 'database.php';
-require_once 'settings.php';
+require_once 'objects/user.php';
 
 /*
- * ClanTestSuite
+ * InviteTestSuite
  *
- * Responsible for testing ClanHandler and the Clan object
+ * Responsible for testing InviteHandler and the Invite object
  *
  */
 class InviteTestSuite extends TestSuite {
 	public function test() {
 		$this->inviteCreationTest();
 	}
+
 	private function inviteCreationTest() {
 		$petterroea = UserHandler::getUserByIdentifier("petterroea");
 		$compo = CompoHandler::getCompo(1); //In deployment
@@ -35,9 +36,8 @@ class InviteTestSuite extends TestSuite {
 
 		$this->assert_equals(count(InviteHandler::getInvites()), 1);
 
-		if($this->assert_equals(count(InviteHandler::getInvitesByUser($randomNonAdmin)), 1)) {
+		if ($this->assert_equals(count(InviteHandler::getInvitesByUser($randomNonAdmin)), 1)) {
 			$invite = InviteHandler::getInvitesByUser($randomNonAdmin)[0];
-
 			$this->assert_equals($invite->getUser()->getId(), $randomNonAdmin->getId());
 			$this->assert_equals($invite->getClan()->getId(), $clan->getId());
 			$invite->decline();

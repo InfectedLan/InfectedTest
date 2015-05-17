@@ -23,6 +23,7 @@
 			$this->testSuites[] = new UserTestSuite($reporter);
 			$this->testSuites[] = new ClanTestSuite($reporter);
 			$this->testSuites[] = new InviteTestSuite($reporter);
+			$this->testSuites[] = new GroupTestSuite($reporter);
 		}
 
 		//Handles stuff like git pulling
@@ -41,10 +42,10 @@
 			
 			foreach($databases as $database) {
 				$mysqli = new mysqli(Settings::db_host, 
-							   Secret::db_username, 
-							   Secret::db_password);
+							   		 Secret::db_username, 
+							   		 Secret::db_password);
 
-				if($mysqli->select_db($database["sql_db"])) {
+				if ($mysqli->select_db($database["sql_db"])) {
 					//Database exists
 					$mysqli->query("DROP DATABASE " . $database["sql_db"]);
 				}
