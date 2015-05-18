@@ -167,7 +167,7 @@ class WebReporter extends TestReporter {
 		$this->errors[] = array("code" => $code, "message" => $message, "file" => $file, "line" => $line);
 	}
 
-	private functionreportErrors() {
+	private function reportErrors() {
 		echo "<h1>Errors</h1>";
 		echo "<table>";
 		echo "<tr><td>Type</td><td>Message</td><td>File</td><td>Line</td></tr>";

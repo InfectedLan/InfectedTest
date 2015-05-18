@@ -50,10 +50,12 @@ class InviteTestSuite extends TestSuite {
 			InviteHandler::createInvite($clan, $randomNonAdmin);
 			$invite = InviteHandler::getInvitesByUser($randomNonAdmin)[0];
 			$invite->accept();
-			if($this->assert_equals(count(ClanHandler::getClanMembers($clan)), 2)) {
+			
+			if ($this->assert_equals(count(ClanHandler::getClanMembers($clan)), 2)) {
 				$members = ClanHandler::getClanMembers($clan);
 				$this->assert_equals($members[1]->getId(), $randomNonAdmin->getId());
 			}
+
 			$this->assert_equals(count(InviteHandler::getInvitesByClan($clan)), 0);
 			$this->assert_equals(count(InviteHandler::getInvites()), 0);
 		}
