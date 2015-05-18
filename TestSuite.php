@@ -66,6 +66,38 @@ class TestSuite {
 		return $val !== $expected;
 	}
 
+	protected function assert_greater_than($val, $expected) {
+		$comment = "Test passed";
+		
+		if ($val < $expected) {
+			$comment = "Expected " . self::createHumanString($expected) . ", got " . self::createHumanString($val);
+		}
+
+		$stackTrace = debug_backtrace();
+		$caller = $stackTrace[1]["function"];
+		$line = $stackTrace[0]["line"];
+
+		$this->testReporter->report(new TestResult($caller . "() line " . $line, $val > $expected ? TestResult::TEST_PASSED : TestResult::TEST_FAILED, $comment));
+		
+		return $val > $expected;
+	}
+
+	protected function assert_less_than($val, $expected) {
+		$comment = "Test passed";
+		
+		if ($val > $expected) {
+			$comment = "Expected " . self::createHumanString($expected) . ", got " . self::createHumanString($val);
+		}
+
+		$stackTrace = debug_backtrace();
+		$caller = $stackTrace[1]["function"];
+		$line = $stackTrace[0]["line"];
+
+		$this->testReporter->report(new TestResult($caller . "() line " . $line, $val < $expected ? TestResult::TEST_PASSED : TestResult::TEST_FAILED, $comment));
+		
+		return $val < $expected;
+	}
+
 	//Same as assert_equals, but with a different text on a failure(for troubleshooting)
 	protected function assert_compare($val1, $val2) {
 		$comment = "Test passed";
