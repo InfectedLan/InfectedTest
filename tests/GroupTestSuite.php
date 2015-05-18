@@ -54,10 +54,12 @@ class GroupTestSuite extends TestSuite {
 		}
 
 		// public static function getMembersByEvent(Event $event, Group $group)
+		$group = GroupHandler::getGroup(1);
 		$memberList = GroupHandler::getMembersByEvent($event, $group);
 		$this->assert_greater_than(count($memberList), 1);
 
 		// public static function getMembers(Group $group)
+		$group = GroupHandler::getGroup(1);
 		$memberList = GroupHandler::getMembers($group);
 		$this->assert_greater_than(count($memberList), 1);
 
