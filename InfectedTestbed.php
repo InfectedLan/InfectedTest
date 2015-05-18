@@ -23,6 +23,7 @@
 			
 			// Infected
 			$this->testSuites[] = new UserTestSuite($reporter);
+			$this->testSuites[] = new LocationTestSuite($reporter);
 
 			// InfectedCompo
 			$this->testSuites[] = new ClanTestSuite($reporter);
