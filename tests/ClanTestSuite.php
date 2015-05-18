@@ -27,15 +27,16 @@ class ClanTestSuite extends TestSuite {
 	 * Tests the functionality of ClanHandler::invite. Not a test for InviteHandler.
 	 */
 	private function clanInviteMemberTest() {
-		//Expects clanCreationTest to be ran
+		// Expects clanCreationTest to be ran
 		$user = UserHandler::getUserByIdentifier("petterroea"); //Any user we know is in the db
 		$testUser = UserHandler::getUserByIdentifier("test1"); //Another user. This one shouldnt be admin, to test permission stuff
 
+		// TODO: Petterroea, this is wrong...
 		//$clan = ClanHandler::getClansByUser($user);
 		//$members = $clan->getMembers();
 		//$this->assert_equals(count($members), 1);
 		
-		//Invite a new member. We have to go through the entire registration process because api.
+		// Invite a new member. We have to go through the entire registration process because api.
 		//$clan->invite($testUser);
 		//$invites = InviteHandler::getInvitesByUser($testUser);
 		//$this->assert_equals(count($invites), 1);
@@ -44,7 +45,7 @@ class ClanTestSuite extends TestSuite {
 	private function clanCreationTest() {
 		$sql = Database::open(Settings::db_name_infected_compo);
 
-		$user = UserHandler::getUserByIdentifier("petterroea"); //Any user we know is in the db
+		$user = UserHandler::getUserByIdentifier("petterroea"); // Any user we know is in the db
 
 		$event = EventHandler::getCurrentEvent();
 		$startTime = time()+10;

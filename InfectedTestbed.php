@@ -84,8 +84,8 @@
 
 	//Error handling. We are using a hack to catch all errors, as set_error_handler does not catch all by default
 	//See http://insomanic.me.uk/post/229851073/php-trick-catching-fatal-errors-e-error-with-a
-	set_error_handler('myErrorHandler');
-	register_shutdown_function('fatalErrorShutdownHandler');
+	//set_error_handler('myErrorHandler');
+	//register_shutdown_function('fatalErrorShutdownHandler');
 
 	function fatalErrorShutdownHandler()
 	{
@@ -105,7 +105,7 @@
 		}
 	}
 
-	error_reporting(0); //Turns off the automatic error reporting, we are handling it ourselves
+	//error_reporting(0); //Turns off the automatic error reporting, we are handling it ourselves
 
 	//Run the test	
 	$testbed = new InfectedTestbed($reporter);
