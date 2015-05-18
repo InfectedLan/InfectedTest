@@ -20,10 +20,16 @@
 			//Initialize test here
 			$this->testSuites = array();
 			//$this->testSuites[] = new TestSuite("Test suite", $reporter);
+			
+			// Infected
 			$this->testSuites[] = new UserTestSuite($reporter);
+
+			// InfectedCompo
 			$this->testSuites[] = new ClanTestSuite($reporter);
 			$this->testSuites[] = new InviteTestSuite($reporter);
-			//$this->testSuites[] = new GroupTestSuite($reporter);
+
+			// InfectedCrew
+			$this->testSuites[] = new GroupTestSuite($reporter);
 		}
 
 		//Handles stuff like git pulling
