@@ -45,14 +45,14 @@ class GroupTestSuite extends TestSuite {
 		public static function getGroupsByEvent(Event $event)
 		*/
 		$groupList = GroupHandler::getGroupsByEvent($event);
-		$this->assert_equals(count($groupList), 8);
+		$this->assert_greather_than(count($groupList), 1);
 
 		/*
 		public static function getGroups()
 		*/
 		// Get all groups and checks if count equals 8.
 		$groupList = GroupHandler::getGroups();
-		$this->assert_equals(count($groupList), 8);
+		$this->assert_greather_than(count($groupList), 1);
 
 		/*
 		public static function createGroup(Event $event, $name, $title, $description, User $leaderUser = null, User $coleaderUser = null)
@@ -67,29 +67,56 @@ class GroupTestSuite extends TestSuite {
 			/*
 			public static function removeGroup(Group $group)
 			*/
+			GroupHandler::removeGroup($createdGroup);
+			$group = GroupHandler::getGroup($createdGroup->getId());
+			$this->assert_equals($group, null);
 		}
 
 		/*
 		public static function getMembersByEvent(Event $event, Group $group)
+		*/
+		$memberList = GroupHandler::getMembersByEvent($event, $group);
+		$this->assert_greather_than(count($memberList), 1);
 
+		/*
 		public static function getMembers(Group $group)
+		*/
+		$memberList = GroupHandler::getMembers($group);
+		$this->assert_greather_than(count($memberList), 1);
 
+		/*
 		public static function isGroupMemberByEvent(Event $event, User $user)
+		*/
 
+		/*
 		public static function isGroupMember(User $user) 
+		*/
 
+		/*
 		public static function isGroupLeaderByEvent(Event $event, User $user) 
+		*/
 
+		/*
 		public static function isGroupLeader(User $user) 
+		*/
 
+		/*
 		public static function isGroupCoLeaderByEvent(Event $event, User $user) 
+		*/
 
+		/*
 		public static function isGroupCoLeader(User $user) 
+		*/
 
+		/*
 		public static function changeGroupForUser(User $user, Group $group)
+		*/
 
+		/*
 		public static function removeUserFromGroup(User $user) 
+		*/
 
+		/*
 		public static function removeUsersFromGroup(Group $group) 
 		*/
 	}
