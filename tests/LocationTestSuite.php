@@ -37,7 +37,7 @@ class LocationTestSuite extends TestSuite {
 
 		// public static function getLocations()
 		$locationList = LocationHandler::getLocations();
-		$this->assert_greather_than(count($locationList), 1);
+		$this->assert_greater_than(count($locationList), 1);
 	}
 }
 ?>
