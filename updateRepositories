@@ -8,8 +8,8 @@ else
 fi
 
 echo "Deleting custom files"
-rm -f testApi/settings.php
-rm -f testApi/secret.php
+rm -f api/settings.php
+rm -f api/secret.php
 
 cd /home/test.infected.no/public_html/test
 
@@ -19,7 +19,7 @@ cd /home/test.infected.no/public_html/test/deploymentData
 
 git pull origin master
 
-cd /home/test.infected.no/public_html/test/testApi
+cd /home/test.infected.no/public_html/test/api
 
 #git checkout -- .
 echo "Pulling out $branch"
@@ -29,6 +29,6 @@ git checkout $branch
 
 cd /home/test.infected.no/public_html/test
 
-cp settings_test.php testApi/settings.php
+cp settings_test.php api/settings.php
 
-cp test_secret.php testApi/secret.php
+cp test_secret.php api/secret.php
