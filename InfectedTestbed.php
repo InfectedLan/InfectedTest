@@ -4,10 +4,10 @@
 	require_once 'TestReporter.php';
 	require_once 'CmdReporter.php';
 	require_once 'WebReporter.php';
-	require_once 'testApi/settings.php';
-	require_once 'testApi/secret.php';
+	require_once 'api/settings.php';
+	require_once 'api/secret.php';
 
-	set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__DIR__) . '/test/testApi');
+	set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__DIR__) . '/test/api');
 
 	function __autoload($class) {
 		include 'tests/' . $class . '.php';

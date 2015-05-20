@@ -1,1 +1,1 @@
-php_value include_path .:/home/test.infected.no/public_html/test/testApi
+php_value include_path .:/home/test.infected.no/public_html/test/api
