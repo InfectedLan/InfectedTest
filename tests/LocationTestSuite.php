@@ -1,5 +1,5 @@
 <?php
-require_once 'TestSuite.php';
+require_once 'testApi/TestSuite.php';
 
 require_once 'handlers/locationhandler.php';
 

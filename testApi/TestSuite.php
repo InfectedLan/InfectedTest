@@ -1,5 +1,5 @@
 <?php
-require_once 'TestResult.php';
+require_once 'testApi/TestResult.php';
 
 class TestSuite {
 	private $name;

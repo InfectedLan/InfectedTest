@@ -1,6 +1,6 @@
 <?php
-require_once 'TestSuite.php';
-require_once 'TestResult.php';
+require_once 'testApi/TestSuite.php';
+require_once 'testApi/TestResult.php';
 
 require_once 'database.php';
 require_once 'settings.php';

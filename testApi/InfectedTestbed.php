@@ -1,9 +1,9 @@
 <?php
-	require_once 'TestSuite.php';
-	require_once 'TestResult.php';
-	require_once 'TestReporter.php';
-	require_once 'CmdReporter.php';
-	require_once 'WebReporter.php';
+	require_once 'testApi/TestSuite.php';
+	require_once 'testApi/TestResult.php';
+	require_once 'testApi/TestReporter.php';
+	require_once 'testApi/CmdReporter.php';
+	require_once 'testApi/WebReporter.php';
 	require_once 'api/settings.php';
 	require_once 'api/secret.php';
 
@@ -86,9 +86,6 @@
 			return $results;
 		}
 	}
-	//Reporter
-	$reporter = new WebReporter();
-
 	//Error handling. We are using a hack to catch all errors, as set_error_handler does not catch all by default
 	//See http://insomanic.me.uk/post/229851073/php-trick-catching-fatal-errors-e-error-with-a
 	//set_error_handler('myErrorHandler');
@@ -111,13 +108,4 @@
 			$reporter->error($code, $message, $file, $line);
 		}
 	}
-
-	//error_reporting(0); //Turns off the automatic error reporting, we are handling it ourselves
-
-	//Run the test	
-	$testbed = new InfectedTestbed($reporter);
-	$testbed->runTests($reporter);
-
-	//Done testing. This is for reporters that report after testing is done
-	$reporter->doneTesting();
 ?>

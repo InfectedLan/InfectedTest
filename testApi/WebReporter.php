@@ -1,5 +1,5 @@
 <?php
-require_once 'TestReporter.php';
+require_once 'testApi/TestReporter.php';
 
 class WebReporter extends TestReporter {
 	private $suites;
