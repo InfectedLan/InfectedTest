@@ -31,24 +31,38 @@ class InviteTestSuite extends TestSuite {
 		$this->assert_equals(count(InviteHandler::getInvitesByClan($clan)), 0);
 		$this->assert_equals(count(ClanHandler::getClanMembers($clan)), 1);
 		InviteHandler::createInvite($clan, $randomNonAdmin);
+		//InviteHandler::getInvitesByClan
 		$this->assert_equals(count(InviteHandler::getInvitesByClan($clan)), 1);
 		$this->assert_equals(count(ClanHandler::getClanMembers($clan)), 1);
 
+		//InviteHandler::getInvites
 		$this->assert_equals(count(InviteHandler::getInvites()), 1);
 
+		//InviteHandler::getInvitesByUser
 		if ($this->assert_equals(count(InviteHandler::getInvitesByUser($randomNonAdmin)), 1)) {
 			$invite = InviteHandler::getInvitesByUser($randomNonAdmin)[0];
+
+
+			//InviteHandler::getInvite
+			$getInviteTest = InviteHandler::getInvite($invite->getId());
+
+			$this->assert_equals($getInviteTest->getId(), $invite->getId());
+
+			//Invite->getUser()
 			$this->assert_equals($invite->getUser()->getId(), $randomNonAdmin->getId());
+			//Invite->getClan()
 			$this->assert_equals($invite->getClan()->getId(), $clan->getId());
+			//Invite->decline()
 			$invite->decline();
 
 			$this->assert_equals(count(InviteHandler::getInvitesByClan($clan)), 0);
 			$this->assert_equals(count(InviteHandler::getInvites()), 0);
 			$this->assert_equals(count(ClanHandler::getClanMembers($clan)), 1);
 
-
+			//InviteHandler::createInvite
 			InviteHandler::createInvite($clan, $randomNonAdmin);
 			$invite = InviteHandler::getInvitesByUser($randomNonAdmin)[0];
+			//Invite->accept()
 			$invite->accept();
 			
 			if ($this->assert_equals(count(ClanHandler::getClanMembers($clan)), 2)) {
