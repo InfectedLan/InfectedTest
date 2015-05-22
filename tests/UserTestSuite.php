@@ -28,7 +28,7 @@ class UserTestSuite extends TestSuite {
 	private function userCreationTest() {
 		//We expect 21 users to exist from the deployment code
 		$users = UserHandler::getUsers(); //Get users
-		$this->assert_equals(count($users), 21); //This asserts if the number of users is 21. It will fail if the left side does not equal the right side
+		$this->assert_greater_than(count($users), 0); //This asserts if the number of users is 21. It will fail if the left side does not equal the right side
 
 		//Check that the user does not exist. This is done to test that the function does not return bogus data, and is a reccomended thing to test. Test everything, basically.
 		$user = UserHandler::getUserByIdentifier("assertUser");
