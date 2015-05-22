@@ -36,6 +36,10 @@ class ClanTestSuite extends TestSuite {
 			$clan = ClanHandler::getClansByUser($user)[0];
 			$members = $clan->getMembers();
 			$this->assert_equals(count($members), 1);
+
+			//ClanHandler::getClanMembers
+			$members = ClanHandler::getClanMembers($clan);
+			$this->assert_equals(count($members), 1);
 			
 			// Invite a new member. We have to go through the entire registration process because api.
 			$clan->invite($testUser);
@@ -65,7 +69,9 @@ class ClanTestSuite extends TestSuite {
 			
 			if ($this->assert_not_equals($clan, null)) {
 				//ClanHandler::getClansByCompo()
-				$this->assert_equals(count(ClanHandler::getClansByCompo($compo)), 1);
+				if($this->assert_equals(count(ClanHandler::getClansByCompo($compo)), 1)) {
+					$this->assert_equals(ClanHandler::getClansByCompo($compo)[0]->getId(), $clan->getId());
+				}
 
 				$this->assert_equals($clan->getName(), "Test clan");
 				$this->assert_equals($clan->getTag(), "CLAN");
@@ -73,6 +79,12 @@ class ClanTestSuite extends TestSuite {
 				$this->assert_equals($clan->getCompo()->getId(), $compo->getId());
 				$members = $clan->getMembers();
 				
+				if ($this->assert_equals(count($members), 1)) {
+					$this->assert_equals($members[0]->getId(), $user->getId());
+				}
+
+				$members = ClanHandler::getClanMembers($clan);
+
 				if ($this->assert_equals(count($members), 1)) {
 					$this->assert_equals($members[0]->getId(), $user->getId());
 				}
