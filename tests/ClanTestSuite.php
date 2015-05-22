@@ -83,6 +83,7 @@ class ClanTestSuite extends TestSuite {
 					$this->assert_equals($members[0]->getId(), $user->getId());
 				}
 
+				//ClanHandler::getClanMembers()
 				$members = ClanHandler::getClanMembers($clan);
 
 				if ($this->assert_equals(count($members), 1)) {
