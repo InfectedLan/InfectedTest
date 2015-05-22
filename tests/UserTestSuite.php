@@ -59,23 +59,23 @@ class UserTestSuite extends TestSuite {
 			$this->assert_not_equals($email_user, null);
 
 			//Check if the two accounts are the same account
-			$this->assert_compare($user->getId(), $email_user->getId());
+			$this->assert_equals($user->getId(), $email_user->getId());
 			//Check if this is the user we inserted
-			$this->assert_compare($user->getId(), $createdUser->getId());
+			$this->assert_equals($user->getId(), $createdUser->getId());
 
 			//Check that the fields we inserted are intact
-			$this->assert_compare($user->getFirstname(), "assertionFirstname");
-			$this->assert_compare($user->getLastname(), "assertionLastname");
-			$this->assert_compare($user->getUsername(), "assertUser");
-			$this->assert_compare($user->getPassword(), "32cdb619196200050ab0af581a10fb83cfc63b1a20f58d4bafb6313d55a3f0e9");
-			$this->assert_compare($user->getEmail(), "assertUser@infected.no");
-			$this->assert_compare($user->getBirthdate(), 890953200);
-			$this->assert_compare($user->getGenderAsString(), "Gutt");
-			$this->assert_compare($user->getPhoneAsString(), "12 34 56 78");
-			$this->assert_compare($user->getPhone(), 12345678);
-			$this->assert_compare($user->getAddress(), "Test address");
-			$this->assert_compare($user->getPostalCode(), "1337");
-			$this->assert_compare($user->getNickname(), "AssertNick");
+			$this->assert_equals($user->getFirstname(), "assertionFirstname");
+			$this->assert_equals($user->getLastname(), "assertionLastname");
+			$this->assert_equals($user->getUsername(), "assertUser");
+			$this->assert_equals($user->getPassword(), "32cdb619196200050ab0af581a10fb83cfc63b1a20f58d4bafb6313d55a3f0e9");
+			$this->assert_equals($user->getEmail(), "assertUser@infected.no");
+			$this->assert_equals($user->getBirthdate(), 890953200);
+			$this->assert_equals($user->getGenderAsString(), "Gutt");
+			$this->assert_equals($user->getPhoneAsString(), "12 34 56 78");
+			$this->assert_equals($user->getPhone(), 12345678);
+			$this->assert_equals($user->getAddress(), "Test address");
+			$this->assert_equals($user->getPostalCode(), "1337");
+			$this->assert_equals($user->getNickname(), "AssertNick");
 		}
 
 		//One last thing, check if girl string also works
@@ -96,7 +96,7 @@ class UserTestSuite extends TestSuite {
 
 			$this->assert_not_equals($user, null);
 
-			$this->assert_compare($user->getGenderAsString(), "Jente");
+			$this->assert_equals($user->getGenderAsString(), "Jente");
 		}
 	}
 }
