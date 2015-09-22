@@ -6,7 +6,7 @@ class WebReporter extends TestReporter {
 	private $errors;
 
 	public function __construct() {
-		$this->suites = array();
+		$this->suites = [];
 	}
 
 	public function beginSuite($suiteName) {

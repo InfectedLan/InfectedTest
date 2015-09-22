@@ -18,7 +18,7 @@
 
 		public function __construct($reporter) {
 			//Initialize test here
-			$this->testSuites = array();
+			$this->testSuites = [];
 			//$this->testSuites[] = new TestSuite("Test suite", $reporter);
 			
 			// Infected
@@ -39,7 +39,7 @@
 		}
 
 		private function initDatabase() {
-			$databases = array();
+			$databases = [];
 			$databases[] = array("fs_location" => "deploymentData/test_infected_no.sql", "sql_db" => Settings::db_name_infected);
 			$databases[] = array("fs_location" => "deploymentData/test_infected_no_compo.sql", "sql_db" => Settings::db_name_infected_compo);
 			$databases[] = array("fs_location" => "deploymentData/test_infected_no_crew.sql", "sql_db" => Settings::db_name_infected_crew);
@@ -67,7 +67,7 @@
 		}
 
 		public function runTests($reporter) {
-			$results = array();
+			$results = [];
 
 			$this->initEnvironment();
 			$this->initDatabase();

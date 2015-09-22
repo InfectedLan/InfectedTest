@@ -9,7 +9,7 @@ class TestSuite {
 	public function __construct($reporter) {
 		$this->name = get_called_class();
 		$this->testReporter = $reporter;
-		$this->testList = array();
+		$this->testList = [];
 	}
 
 	public function getName() {
