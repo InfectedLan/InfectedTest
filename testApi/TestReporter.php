@@ -7,7 +7,7 @@ class TestReporter {
 	}
 
 	public function beginSuite($suiteName) {
-		$this->suites[] = array("name" => $suiteName, "results" => array());
+		$this->suites[] = ["name" => $suiteName, "results" => []];
 	}
 	public function report($result) {
 		$this->suites[sizeof($this->suites)-1][] = $result;

@@ -7,7 +7,7 @@ class CmdReporter extends TestReporter{
 	}
 
 	public function beginSuite($suiteName) {
-		$this->suites[] = array("name" => $suiteName, "results" => array());
+		$this->suites[] = ["name" => $suiteName, "results" => []];
 		echo "===BEGIN SUITE " . $suiteName . "===\n";
 	}
 	public function report($result) {

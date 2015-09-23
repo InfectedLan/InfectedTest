@@ -20,7 +20,7 @@
 			//Initialize test here
 			$this->testSuites = [];
 			//$this->testSuites[] = new TestSuite("Test suite", $reporter);
-			
+
 			// Infected
 			$this->testSuites[] = new UserTestSuite($reporter);
 			$this->testSuites[] = new LocationTestSuite($reporter);
@@ -40,16 +40,16 @@
 
 		private function initDatabase() {
 			$databases = [];
-			$databases[] = array("fs_location" => "deploymentData/test_infected_no.sql", "sql_db" => Settings::db_name_infected);
-			$databases[] = array("fs_location" => "deploymentData/test_infected_no_compo.sql", "sql_db" => Settings::db_name_infected_compo);
-			$databases[] = array("fs_location" => "deploymentData/test_infected_no_crew.sql", "sql_db" => Settings::db_name_infected_crew);
-			$databases[] = array("fs_location" => "deploymentData/test_infected_no_info.sql", "sql_db" => Settings::db_name_infected_info);
-			$databases[] = array("fs_location" => "deploymentData/test_infected_no_main.sql", "sql_db" => Settings::db_name_infected_main);
-			$databases[] = array("fs_location" => "deploymentData/test_infected_no_tickets.sql", "sql_db" => Settings::db_name_infected_tickets);
-			
+			$databases[] = ["fs_location" => "deploymentData/test_infected_no.sql", "sql_db" => Settings::db_name_infected];
+			$databases[] = ["fs_location" => "deploymentData/test_infected_no_compo.sql", "sql_db" => Settings::db_name_infected_compo];
+			$databases[] = ["fs_location" => "deploymentData/test_infected_no_crew.sql", "sql_db" => Settings::db_name_infected_crew];
+			$databases[] = ["fs_location" => "deploymentData/test_infected_no_info.sql", "sql_db" => Settings::db_name_infected_info];
+			$databases[] = ["fs_location" => "deploymentData/test_infected_no_main.sql", "sql_db" => Settings::db_name_infected_main];
+			$databases[] = ["fs_location" => "deploymentData/test_infected_no_tickets.sql", "sql_db" => Settings::db_name_infected_tickets];
+
 			foreach($databases as $database) {
-				$mysqli = new mysqli(Settings::db_host, 
-							   		 Secret::db_username, 
+				$mysqli = new mysqli(Settings::db_host,
+							   		 Secret::db_username,
 							   		 Secret::db_password);
 
 				if ($mysqli->select_db($database["sql_db"])) {

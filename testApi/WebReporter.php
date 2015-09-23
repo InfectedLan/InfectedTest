@@ -10,10 +10,10 @@ class WebReporter extends TestReporter {
 	}
 
 	public function beginSuite($suiteName) {
-		$this->suites[] = array("name" => $suiteName, "results" => array());
+		$this->suites[] = ["name" => $suiteName, "results" => []];
 	}
 	public function report($result) {
-		array_push($this->suites[sizeof($this->suites)-1]["results"], $result);
+		$this->suites[sizeof($this->suites)-1]["results"][] = $result;
 	}
 
 	public function doneTesting() {
@@ -59,7 +59,7 @@ class WebReporter extends TestReporter {
 				case TestResult::TEST_NOT_RAN:
 					$not_ran++;
 					break;
-				
+
 				default:
 					break;
 			}
@@ -80,7 +80,7 @@ class WebReporter extends TestReporter {
 				case TestResult::TEST_NOT_RAN:
 					echo 'not_ran';
 					break;
-				
+
 				default:
 					echo 'css_error';
 					break;
@@ -102,7 +102,7 @@ class WebReporter extends TestReporter {
 					case TestResult::TEST_NOT_RAN:
 						echo 'Not ran';
 						break;
-					
+
 					default:
 						echo 'INTERNAL ERROR';
 						break;
@@ -158,13 +158,13 @@ class WebReporter extends TestReporter {
 						print_r($argument);
 						echo "</pre></td>";
 						echo "</tr>";
-					}				
+					}
 				$i++;
 			}
 		echo "</table>";
 	}
 	public function error($code, $message, $file, $line) {
-		$this->errors[] = array("code" => $code, "message" => $message, "file" => $file, "line" => $line);
+		$this->errors[] = ["code" => $code, "message" => $message, "file" => $file, "line" => $line];
 	}
 
 	private function reportErrors() {
